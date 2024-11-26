@@ -99,7 +99,7 @@ def register():
 
         password_encriptado = generate_password_hash(password)
 
-        conn = sqlite3.connect("inventarios.db")
+        conn = sqlite3.connect("guarderia.db")
         cursor = conn.cursor()
         cursor.execute("INSERT INTO usuarios(nombre,username,password) VALUES (?,?,?)",(nombre,username,password_encriptado))
         conn.commit()
@@ -117,7 +117,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        conn = sqlite3.connect("inventarios.db")
+        conn = sqlite3.connect("guarderia.db")
         #resultado de la consulta sea diccionario
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
