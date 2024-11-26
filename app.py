@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'miclavesecreta'
 
 def init_sqlite_db():
-    conn = sqlite3.connect("inventarios.db")
+    conn = sqlite3.connect("guarderia.db")
     cursor = conn.cursor()
     cursor.execute(
         """
@@ -17,7 +17,55 @@ def init_sqlite_db():
     nombre TEXT NOT NULL,
     username TEXT NOT NULL CHECK (username GLOB 'user-[0-9][0-9][0-9]'),
     password TEXT NOT NULL
-)
+);
+        """
+    )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS Niño (
+            id_niño TEXT PRIMARY KEY,
+            nombre TEXT NOT NULL,
+            apellido TEXT NOT NULL,
+            fecha_nacimiento DATE NOT NULL,
+            direccion TEXT,
+            alergias_con_medicas TEXT,
+            grupo_asignado_fk TEXT,
+            FOREIGN KEY (grupo_asignado_fk) REFERENCES Grupo(id_grupo)
+        );
+        """
+    )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS Tutor (
+            id_tutor TEXT PRIMARY KEY,
+            nombre TEXT NOT NULL,
+            apellido TEXT NOT NULL,
+            telefono INTEGER,
+            direccion TEXT,
+            relacion_con_el_niño TEXT
+        );
+        """
+    )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS Grupo (
+            id_grupo TEXT PRIMARY KEY,
+            nombre_grupo TEXT NOT NULL,
+            capacidad_maxima TEXT,
+            id_cuidador_fk TEXT,
+            FOREIGN KEY (id_cuidador_fk) REFERENCES Cuidador(id_cuidador)
+        );
+        """
+    )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS Cuidador (
+            id_cuidador TEXT PRIMARY KEY,
+            nombre TEXT NOT NULL,
+            apellido TEXT NOT NULL,
+            telefono TEXT,
+            fecha_contactacion TEXT
+        );
         """
     )
     conn.commit()

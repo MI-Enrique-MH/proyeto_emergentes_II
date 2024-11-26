@@ -3,34 +3,72 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portal Web</title>
+    <title>Agencia de Viajes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .hero {
+        position: relative;
+        background: url('static/guarderia_portada.jpg') no-repeat center center;
+        background-size: cover;
+        height: 100vh;
+        color: white;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+      .hero .btn {
+        margin: 10px;
+      }
+      .about-section {
+        padding: 50px 0;
+      }
+      .about-section img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .about-section .content {
+        padding: 20px;
+      }
+    </style>
   </head>
-  <body class="bg-light">
-    <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
-      <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-primary">Portal Web</h1>
-        <p class="text-muted">Bienvenido, elige una opción para continuar</p>
-      </div>
-      <div class="d-flex gap-3">
-        <a href="/login" class="btn btn-outline-primary btn-lg px-4">Iniciar Sesión</a>
-        <a href="/register" class="btn btn-primary btn-lg px-4">Registrarse</a>
-      </div>
-    </div>
+  <body>
 
-    <div class="container d-flex align-items-center justify-content-center vh-100">
-      <div class="card w-100" style="max-width: 900px;">
-        <div class="row g-0 h-100">
-          <div class="col-6 text-white d-flex justify-content-center align-items-center" style="background: linear-gradient(135deg, #007bff, #00c4ff);">
-            <h1>Izquierda</h1>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Bienvenido a la guarderia <span style="color: rgb(0, 76, 255);">Joyita</span></h1>
+      <div>
+        <a href="/login" class="btn btn-warning">Iniciar Session</a>
+        <a href="/register" class="btn btn-outline-light">Registrarse</a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+      
+      <div class="container">
+        <h2>uvicanos en</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <img src="static/mapa_ubicacion.png" alt="Paisaje">
           </div>
-          <div class="col-6 text-white d-flex justify-content-center align-items-center" style="background: linear-gradient(135deg, #ffc107, #ff5722);">
-            <h1>Derecha</h1>
+          <div class="col-md-6 content">
+            <h2>imformacion</h2>
+            <p>We Travel to Explore the World!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna nec eros bibendum facilisis. Suspendisse potenti.</p>
+            <a href="#" class="btn btn-warning">Know more</a>
           </div>
         </div>
       </div>
-    </div>
-    
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
