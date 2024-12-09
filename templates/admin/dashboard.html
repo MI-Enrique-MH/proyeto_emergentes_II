@@ -11,16 +11,21 @@
     padding:0;
     margin: 0;
 }
-h1{
-    font-size: 75px;
+.titulo {
+    font-size: 120px;
     text-align: center;
-    background-color: blue;
-    color: aliceblue;
+    background-image: url('https://img.freepik.com/vector-premium/interior-jardin-infantes-guarderia-infantil-muebles-juguetes-ninos-sala-ninos-edad-preescolar-jugar-actividades-aprendizaje-dibujos-animados-vectores-pizarra-mesa-sillas-ninos_102902-3835.jpg?w=1380'); 
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    color: rgb(0, 0, 0);
     text-transform: uppercase;
+    padding: 20px;
 }
 
+
 nav ul {
-    background-color: crimson;
+    background-color: rgb(255, 125, 32);
     width: 100%;
     list-style-type: none;
     text-align: center;
@@ -56,22 +61,39 @@ img{
 .contenido{
     display: flex;
     margin: 60px;
-}
+    }
+
+
 .articulos{
     width: 80%;
     border-right: 3px solid black;
+    margin: 60px;
+    background-image: url('https://png.pngtree.com/background/20210711/original/pngtree-blue-cartoon-flat-six-children-s-day-advertising-background-picture-image_1106169.jpg');
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .secciones{
     
     display: flex;
     align-items: center;
     padding: 40px;
+    
 }
 
 .menu-secundario{
     width: 20%;
     margin-top: 60px;
     text-align: end;
+    background-image: url('https://dbdzm869oupei.cloudfront.net/img/blinds/preview/63069.png');
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
 }
 .menu-secundario a{
     display: block;
@@ -93,15 +115,57 @@ footer p{
 footer div{
     text-align: center;
 }
+/*-----------------*/
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden; 
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            font-weight: bold;
+        }
+        th {
+            background-color: rgba(242, 242, 242, 0.8); 
+        }
+        h2 {
+            text-align: center;
+            font-size: 40px;
+        }
+        .turnos{
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .turno1 {
+            background-image: url('https://previews.123rf.com/images/yuyuyi/yuyuyi1411/yuyuyi141100039/33746473-los-ni%C3%B1os-y-el-marco.jpg');
+            background-size: 100% 100%; 
+            background-position: center;
+        }
+        .turno2 {
+            background-image: url('https://previews.123rf.com/images/yuyuyi/yuyuyi1411/yuyuyi141100039/33746473-los-ni%C3%B1os-y-el-marco.jpg');
+            background-size: 100% 100%; 
+            background-position: center;
+        }
+        .turno3 {
+            background-image: url('https://previews.123rf.com/images/yuyuyi/yuyuyi1411/yuyuyi141100039/33746473-los-ni%C3%B1os-y-el-marco.jpg');
+            background-size: 100% 100%; 
+            background-position: center;
+        }
 </style>
 <body>
-     <H1>CENTRO INFANTIL</H1>
-     <h1>JOYITAS</h1>
-     <img  src="static/salon.jpg" alt="portada">
+    <h1 class="titulo">CENTRO INFANTIL<br>JOYITAS</h1>
+
+     
      <nav>
         <ul>
             <li>
-                <a href="#">HORARIOS</a>
+                <a href="/#">HOME</a>
             </li>
             <li>
                 <a href="/admin/nino/lista">REGISTRO DE NIÑOS</a>
@@ -119,85 +183,133 @@ footer div{
         </ul>
      </nav>
      
-     <div class="contenido">
-        <div class="articulos">
-            <div class="secciones">
-                <div>
-                    <h2>TENEMOS ESTAS AULAS:</h2>
-                </div>
-                </div>      
-            <div class="secciones">
-                <BR>
-                <div>
-                    <h2>AULA ESTRELLITAS</h2>
-                    <p>las clases de estrellita consta de 3 a 8 años donde
-                        tenemos aulas especialmente para los niños de esa edad
-                        con niños alegres 
-                        <li>juegos</li>
-                        <li>colchones</li>
-                        <li>clases</li>
-                    </p>
-                </div>
-                <div>
-                    <div>
-                    
-                        <img class="con-ima" src="static/juego1.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="secciones">
-                <div>
-                    <h2>AULA JOYITAS</h2>
-                    <p>
-                        Las clases de joyitas consta de niños de 8 a
-                        13 años donde tenemos aulas y campo abierto donde hay juegos y
-                        tambien maestros especializados tenemos:
-                        <li>juegos</li>
-                        <li>manualidades</li>
-                    </p>
-                </div>
-                <div>
-                        <img src="static/juego2.jpg" alt="">
-                </div>
-            </div>
-            <div class="secciones">
-                <div>
-                    <h2>AULA MENSAJEROS</h2>
-                    <p>
-                        Las clases de joyitas consta de jovenes de 14 a
-                        17 años donde tenemos aulas y campo abierto donde hay juegos y
-                        tambien maestros especializados tenemos:
-                        clases de matematica y fisica clases de ajedrez para el rasonamiento logico
-                        <li>deportes</li>
-                        <li>razonamiento</li>
-                    </p>
-                </div>
-                <div>
-                        <img src="static/juegos3.webp" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="menu-secundario">
-            <H2>JUEGOS DE MESA</H2>
-            <br>
-            <img src="static/ludo.jpg" alt="">
-            <a href="https://www.magnojuegos.com/ludo-online/reglas">LUDO</a>
-            <img src="static/bobail.jpg" alt="">
-            <a href="https://www.grupoalquerque.es/ferias/2021/archivos/material/africa/Bobail_Africa_con_tablero.pdf">BOBAIL</a>
-            <img src="static/juego uno.jpg" alt="">
-            <a href="https://www.lavoz.com.ar/viral/como-se-juega-al-uno-reglas-e-instrucciones-para-principiantes/">UNO</a>
-            <img src="static/jumanji.jpg" alt="">
-            <a href="https://entretenimientodigital.net/reglas-del-juego-jumanji/">JUMANJI
+</head>
+<body>
 
-            </a>
-        </div>
-     </div>
+    <h2><br>Horario de la Guardería<br></h2>
+
+    <h3 class="turnos"><br>Turno 1: De 8:30 am a 12:00 pm (Mañana)<br>.</h3>
+    <table class="turno1">
+        <tr>
+            <th>Hora</th>
+            <th>Actividad</th>
+        </tr>
+        <tr>
+            <td>08:30 - 09:00</td>
+            <td>Llegada y recepción de niños. Juego libre o actividad de bienvenida</td>
+        </tr>
+        <tr>
+            <td>09:00 - 09:30</td>
+            <td>Desayuno o refrigerio ligero</td>
+        </tr>
+        <tr>
+            <td>09:30 - 10:30</td>
+            <td>Actividad educativa (manualidades, juegos de aprendizaje, canciones)</td>
+        </tr>
+        <tr>
+            <td>10:30 - 11:00</td>
+            <td>Actividad física o tiempo de juego al aire libre</td>
+        </tr>
+        <tr>
+            <td>11:00 - 11:30</td>
+            <td>Actividad creativa (pintura, dibujo, construcción con bloques)</td>
+        </tr>
+        <tr>
+            <td>11:30 - 12:00</td>
+            <td>Juego libre o tiempo tranquilo (cuento, música suave)</td>
+        </tr>
+        <tr>
+            <td>12:00 - 12:30</td>
+            <td>Recogida y salida de niños (fin de jornada para el turno de la mañana)</td>
+        </tr>
+    </table>
+
+    <h3 class="turnos"><br>Turno 2: De 12:00 pm a 3:30 pm (Mediodía y tarde temprana)<br>.</h3>
+    <table class="turno2">
+        <tr>
+            <th>Hora</th>
+            <th>Actividad</th>
+        </tr>
+        <tr>
+            <td>12:00 - 12:30</td>
+            <td>Llegada y recepción de niños. Juego libre o actividad de bienvenida</td>
+        </tr>
+        <tr>
+            <td>12:30 - 13:00</td>
+            <td>Almuerzo</td>
+        </tr>
+        <tr>
+            <td>13:00 - 13:45</td>
+            <td>Siesta o descanso tranquilo (para niños más pequeños o según edad)</td>
+        </tr>
+        <tr>
+            <td>13:45 - 14:30</td>
+            <td>Actividad educativa (lectura, juegos de desarrollo de habilidades cognitivas)</td>
+        </tr>
+        <tr>
+            <td>14:30 - 15:00</td>
+            <td>Actividad física o tiempo de juego al aire libre</td>
+        </tr>
+        <tr>
+            <td>15:00 - 15:30</td>
+            <td>Merienda</td>
+        </tr>
+        <tr>
+            <td>15:30 - 16:00</td>
+            <td>Actividad creativa (manualidades, música, danza)</td>
+        </tr>
+        <tr>
+            <td>16:00 - 16:30</td>
+            <td>Juego libre o actividad guiada</td>
+        </tr>
+        <tr>
+            <td>16:30 - 17:00</td>
+            <td>Recogida y salida de niños (fin de jornada para el turno de mediodía)</td>
+        </tr>
+    </table>
+
+    <h3 class="turnos"><br>Turno 3: De 3:00 pm a 7:00 pm (Tarde)<br>.</h3>
+    <table class="turno3">
+        <tr>
+            <th>Hora</th>
+            <th>Actividad</th>
+        </tr>
+        <tr>
+            <td>03:00 - 03:30</td>
+            <td>Llegada y recepción de niños. Juego libre o actividad de bienvenida</td>
+        </tr>
+        <tr>
+            <td>03:30 - 04:00</td>
+            <td>Merienda o refrigerio</td>
+        </tr>
+        <tr>
+            <td>04:00 - 04:45</td>
+            <td>Actividad educativa (juegos de habilidades cognitivas, matemáticas, lenguaje)</td>
+        </tr>
+        <tr>
+            <td>04:45 - 05:30</td>
+            <td>Actividad física (juegos deportivos o recreativos al aire libre)</td>
+        </tr>
+        <tr>
+            <td>05:30 - 06:00</td>
+            <td>Tiempo de relajación (cuento, música suave) o actividad tranquila</td>
+        </tr>
+        <tr>
+            <td>06:00 - 06:30</td>
+            <td>Actividad creativa (manualidades, juegos de rol, danza)</td>
+        </tr>
+        <tr>
+            <td>06:30 - 07:00</td>
+            <td>Recogida y salida de niños (fin de jornada para el turno de la tarde)</td>
+        </tr>
+    </table>
+
      <footer>
         <p>
             CENTRO EDUCATIVO JOYITAS
         </p>
         <div>
-        <img src="static/logo-jardilin.jpg" alt="">
+            <img src="data:image/png;base64,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" alt="Logo Jardilin">
         </div>
         
 
