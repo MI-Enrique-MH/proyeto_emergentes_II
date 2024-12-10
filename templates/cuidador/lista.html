@@ -10,6 +10,15 @@
   <body class="bg-light">
 
     <div class="container mt-5">
+      <!-- Mostrar Mensajes Flash -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-info">
+            {{ messages[0] }}
+          </div>
+        {% endif %}
+      {% endwith %}
+
       <!-- Título principal -->
       <h1 class="text-center text-muted mb-4">Lista de Cuidadores</h1>
 
@@ -23,17 +32,27 @@
               <th>Apellido</th>
               <th>Teléfono</th>
               <th>Fecha de Contactación</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {% for cuidador in cuidadores %}
-            <tr>
-              <td>{{ cuidador['id_cuidador'] }}</td>
-              <td>{{ cuidador['nombre'] }}</td>
-              <td>{{ cuidador['apellido'] }}</td>
-              <td>{{ cuidador['telefono'] }}</td>
-              <td>{{ cuidador['fecha_contactacion'] }}</td>
-            </tr>
+              <tr>
+                <td>{{ cuidador['id_cuidador'] }}</td>
+                <td>{{ cuidador['nombre'] }}</td>
+                <td>{{ cuidador['apellido'] }}</td>
+                <td>{{ cuidador['telefono'] }}</td>
+                <td>{{ cuidador['fecha_contactacion'] }}</td>
+                <td>
+                  <!-- Botón de Editar -->
+                  <a href="/admin/cuidador/editar/{{ cuidador['id_cuidador'] }}" class="btn btn-warning btn-sm">Editar</a>
+          
+                  <!-- Formulario de Eliminar -->
+                  <form action="/admin/cuidador/eliminar/{{ cuidador['id_cuidador'] }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                  </form>
+                </td>
+              </tr>
             {% endfor %}
           </tbody>
         </table>

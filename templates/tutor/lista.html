@@ -21,6 +21,7 @@
                     <th>Teléfono</th>
                     <th>Dirección</th>
                     <th>Relación con el Niño</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +33,12 @@
                     <td>{{ tutor['telefono'] }}</td>
                     <td>{{ tutor['direccion'] }}</td>
                     <td>{{ tutor['relacion_con_el_niño'] }}</td>
+                    <td>
+                        <a href="/admin/tutor/editar/{{ tutor['id_tutor'] }}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="/admin/tutor/eliminar/{{ tutor['id_tutor'] }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

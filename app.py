@@ -158,6 +158,7 @@ def logout():
 def dashboard():
     return render_template("admin/dashboard.html")
 
+# CODIGO PYTHON DE CUIDADOR  ##############################################################################
 @app.route("/admin/cuidador/registrar", methods=["GET", "POST"])
 @login_required
 def registrar_cuidador():
@@ -208,6 +209,65 @@ def lista_cuidadores():
     # Renderizar la plantilla con los datos de los cuidadores
     return render_template("cuidador/lista.html", cuidadores=cuidadores)
 
+@app.route("/admin/cuidador/editar/<id_cuidador>", methods=["GET", "POST"])
+@login_required
+def editar_cuidador(id_cuidador):
+    conn = sqlite3.connect("guarderia.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    # Si es un POST, actualizar los datos del cuidador
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        telefono = request.form["telefono"]
+        fecha_contactacion = request.form["fecha_contactacion"]
+
+        cursor.execute("""
+            UPDATE Cuidador 
+            SET nombre = ?, apellido = ?, telefono = ?, fecha_contactacion = ?
+            WHERE id_cuidador = ?
+        """, (nombre, apellido, telefono, fecha_contactacion, id_cuidador))
+        conn.commit()
+        conn.close()
+        flash("Cuidador actualizado exitosamente.")
+        return redirect("/admin/cuidador/lista")
+
+    # Obtener los datos del cuidador
+    cursor.execute("SELECT * FROM Cuidador WHERE id_cuidador = ?", (id_cuidador,))
+    cuidador = cursor.fetchone()
+    conn.close()
+
+    return render_template("cuidador/editar.html", cuidador=cuidador)
+
+@app.route("/admin/cuidador/eliminar/<id_cuidador>", methods=["POST"])
+@login_required
+def eliminar_cuidador(id_cuidador):
+    conn = sqlite3.connect("guarderia.db")
+    cursor = conn.cursor()
+
+    # Verificar si el cuidador tiene un grupo asignado
+    cursor.execute("""
+        SELECT g.nombre_grupo
+        FROM Grupo g
+        WHERE g.id_cuidador_fk = ?
+    """, (id_cuidador,))
+    grupo_asignado = cursor.fetchone()
+
+    if grupo_asignado:
+        # Si el cuidador está asignado a un grupo, mostrar mensaje
+        flash(f"El cuidador está vigente en el grupo '{grupo_asignado[0]}'. No se puede eliminar.")
+    else:
+        # Si no está asignado a ningún grupo, proceder con la eliminación
+        cursor.execute("DELETE FROM Cuidador WHERE id_cuidador = ?", (id_cuidador,))
+        conn.commit()
+        flash("Cuidador eliminado exitosamente.")
+
+    conn.close()
+    return redirect("/admin/cuidador/lista")
+
+
+################# CODIGO PYTHON DE GRUPO ################################################################
 @app.route("/admin/grupo/registrar", methods=["GET", "POST"])
 @login_required
 def registrar_grupo():
@@ -258,6 +318,44 @@ def lista_grupos():
 
     return render_template("grupo/lista.html", grupos=grupos)
 
+@app.route("/admin/grupo/editar/<id_grupo>", methods=["GET", "POST"])
+@login_required
+def editar_grupo(id_grupo):
+    conn = sqlite3.connect("guarderia.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        # Obtener datos actualizados del formulario
+        nombre_grupo = request.form["nombre_grupo"]
+        capacidad_maxima = request.form["capacidad_maxima"]
+        id_cuidador_fk = request.form["id_cuidador_fk"]
+
+        # Actualizar en la base de datos
+        cursor.execute("""
+            UPDATE Grupo
+            SET nombre_grupo = ?, capacidad_maxima = ?, id_cuidador_fk = ?
+            WHERE id_grupo = ?
+        """, (nombre_grupo, capacidad_maxima, id_cuidador_fk, id_grupo))
+        conn.commit()
+        conn.close()
+
+        flash("Grupo actualizado exitosamente")
+        return redirect("/admin/grupo/lista")
+
+    # Obtener datos del grupo
+    cursor.execute("SELECT * FROM Grupo WHERE id_grupo = ?", (id_grupo,))
+    grupo = cursor.fetchone()
+
+    # Obtener lista de cuidadores
+    cursor.execute("SELECT id_cuidador, nombre, apellido FROM Cuidador")
+    cuidadores = cursor.fetchall()
+    conn.close()
+
+    return render_template("grupo/editar.html", grupo=grupo, cuidadores=cuidadores)
+
+
+####################################CODIGO PYTHON DE TUTOR #############################################
 @app.route("/admin/tutor/registrar", methods=["GET", "POST"])
 @login_required
 def registrar_tutor():
@@ -309,8 +407,53 @@ def lista_tutores():
 
     return render_template("tutor/lista.html", tutores=tutores)
 
+@app.route("/admin/tutor/editar/<int:id_tutor>", methods=["GET", "POST"])
+@login_required
+def editar_tutor(id_tutor):
+    conn = sqlite3.connect("guarderia.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        telefono = request.form["telefono"]
+        direccion = request.form["direccion"]
+        relacion_con_el_niño = request.form["relacion_con_el_niño"]
+
+        # Actualizar datos en la base de datos
+        cursor.execute(
+            """
+            UPDATE Tutor
+            SET nombre = ?, apellido = ?, telefono = ?, direccion = ?, relacion_con_el_niño = ?
+            WHERE id_tutor = ?
+            """,
+            (nombre, apellido, telefono, direccion, relacion_con_el_niño, id_tutor),
+        )
+        conn.commit()
+        conn.close()
+        flash("Tutor actualizado exitosamente.")
+        return redirect("/admin/tutor/lista")
+
+    # Cargar datos actuales del tutor
+    cursor.execute("SELECT * FROM Tutor WHERE id_tutor = ?", (id_tutor,))
+    tutor = cursor.fetchone()
+    conn.close()
+    return render_template("tutor/editar.html", tutor=tutor)
 
 
+@app.route("/admin/tutor/eliminar/<int:id_tutor>", methods=["POST"])
+@login_required
+def eliminar_tutor(id_tutor):
+    conn = sqlite3.connect("guarderia.db")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Tutor WHERE id_tutor = ?", (id_tutor,))
+    conn.commit()
+    conn.close()
+    flash("Tutor eliminado exitosamente.")
+    return redirect("/admin/tutor/lista")
+
+################################# CODIGO PYTHON DE NIÑO ################################################
 @app.route("/admin/nino/registrar", methods=["GET", "POST"])
 @login_required
 def registrar_nino():
@@ -387,6 +530,75 @@ def lista_ninos():
     conn.close()
 
     return render_template("nino/lista.html", ninos=ninos)
+@app.route("/admin/nino/editar/<id_nino>", methods=["GET", "POST"])
+@login_required
+def editar_nino(id_nino):
+    conn = sqlite3.connect("guarderia.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        fecha_nacimiento = request.form["fecha_nacimiento"]
+        direccion = request.form["direccion"]
+        alergias_con_medicas = request.form["alergias_con_medicas"]
+        grupo_asignado_fk = request.form["grupo_asignado_fk"]
+        tutor_asignado_fk = request.form["tutor_asignado_fk"]
+
+        cursor.execute(
+            """
+            UPDATE Niño
+            SET nombre = ?, apellido = ?, fecha_nacimiento = ?, direccion = ?, 
+                alergias_con_medicas = ?, grupo_asignado_fk = ?, tutor_asignado_fk = ?
+            WHERE id_niño = ?
+            """,
+            (
+                nombre,
+                apellido,
+                fecha_nacimiento,
+                direccion,
+                alergias_con_medicas,
+                grupo_asignado_fk,
+                tutor_asignado_fk,
+                id_nino,
+            ),
+        )
+        conn.commit()
+        conn.close()
+        flash("Datos del niño actualizados correctamente.")
+        return redirect("/admin/nino/lista")
+
+    # Obtener los datos actuales del niño
+    cursor.execute("SELECT * FROM Niño WHERE id_niño = ?", (id_nino,))
+    nino = cursor.fetchone()
+
+    # Obtener tutores y grupos disponibles
+    cursor.execute("SELECT id_tutor, nombre || ' ' || apellido AS nombre_completo FROM Tutor")
+    tutores = cursor.fetchall()
+    cursor.execute(
+        """
+        SELECT g.id_grupo, g.nombre_grupo, c.nombre || ' ' || c.apellido AS encargado
+        FROM Grupo g
+        LEFT JOIN Cuidador c ON g.id_cuidador_fk = c.id_cuidador
+        """
+    )
+    grupos = cursor.fetchall()
+    conn.close()
+
+    return render_template("nino/editar.html", nino=nino, tutores=tutores, grupos=grupos)
+
+@app.route("/nino/eliminar/<id_nino>", methods=["POST"])
+@login_required
+def eliminar_nino(id_nino):
+    conn = sqlite3.connect("guarderia.db")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Niño WHERE id_niño = ?", (id_nino,))
+    conn.commit()
+    conn.close()
+    flash("Niño eliminado exitosamente.")
+    return redirect("/admin/nino/lista")
+
 
 
 if __name__ == "__main__":
