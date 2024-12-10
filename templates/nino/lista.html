@@ -30,19 +30,27 @@
         </thead>
         <tbody>
           {% for nino in ninos %}
-            <tr>
-              <td>{{ nino['id_niño'] }}</td>
-              <td>{{ nino['nombre'] }}</td>
-              <td>{{ nino['apellido'] }}</td>
-              <td>{{ nino['fecha_nacimiento'] }}</td>
-              <td>{{ nino['direccion'] }}</td>
-              <td>{{ nino['alergias_con_medicas'] }}</td>
-              <td>{{ nino['nombre_grupo'] }}</td>
-              <td>{{ nino['tutor_asignado'] }}</td>
-              <td>{{ nino['cuidador_encargado'] }}</td>
-            </tr>
+              <tr>
+                  <td>{{ nino['id_niño'] }}</td>
+                  <td>{{ nino['nombre'] }}</td>
+                  <td>{{ nino['apellido'] }}</td>
+                  <td>{{ nino['fecha_nacimiento'] }}</td>
+                  <td>{{ nino['direccion'] }}</td>
+                  <td>{{ nino['alergias_con_medicas'] }}</td>
+                  <td>{{ nino['nombre_grupo'] }}</td>
+                  <td>{{ nino['tutor_asignado'] }}</td>
+                  <td>{{ nino['cuidador_encargado'] }}</td>
+                  <td>
+                    <a href="/admin/nino/editar/{{ nino['id_niño'] }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="/nino/eliminar/{{ nino['id_niño'] }}" method="POST">
+                      <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                  </form>
+                  
+                  </td>
+              </tr>
           {% endfor %}
-        </tbody>
+      </tbody>
+      
       </table>
 
       <!-- Botón para registrar un nuevo niño -->
